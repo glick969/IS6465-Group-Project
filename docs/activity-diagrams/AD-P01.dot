@@ -1,0 +1,18 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-P01  Create product\nMidterm activity flow: temporary sample data; no real authentication";
+
+open [label="Employee: select Add product"]; form [label="Prototype: show required fields and unit hints"];
+mergeEntry [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+entry [label="Employee: enter or correct product values",fillcolor="#fff5e7"];
+action [shape=diamond,label="Employee action?",fillcolor="#fff"]; cancel [label="Prototype: return to list unchanged"];
+valid [shape=diamond,label="Required fields and
+values valid?",fillcolor="#fff"];
+errors [label="Prototype: show specific errors; retain entries"];
+save [label="Prototype: assign unique ID; attempt temporary save"];
+stored [shape=diamond,label="Storage available?",fillcolor="#fff"];
+failure [label="Prototype: explain failure; keep form values"];
+success [label="Prototype: show new record and temporary-save message"];
+start -> open -> form -> mergeEntry -> entry -> action; action -> cancel [label="Cancel"]; cancel -> end;
+action -> valid [label="Submit"]; valid -> errors [label="No"]; errors -> mergeEntry;
+valid -> save [label="Yes"]; save -> stored; stored -> success [label="Yes"]; success -> end;
+stored -> failure [label="No"]; failure -> mergeEntry;
+}

@@ -1,0 +1,357 @@
+{
+  "requirements": [
+    [
+      "FR-P01",
+      "The system shall let employees and administrators add a product with all required fields.",
+      "UC-P01"
+    ],
+    [
+      "FR-P02",
+      "The system shall let employees and administrators search, filter, and view product records including internal costs.",
+      "UC-P02"
+    ],
+    [
+      "FR-P03",
+      "The system shall show customers only active products and public specifications, selling price, and availability.",
+      "UC-P02"
+    ],
+    [
+      "FR-P04",
+      "The system shall let employees and administrators update product fields while retaining the product ID.",
+      "UC-P03"
+    ],
+    [
+      "FR-P05",
+      "The system shall show removal eligibility and require explicit confirmation before deletion or inactivation.",
+      "UC-P04"
+    ],
+    [
+      "FR-P06",
+      "The system shall display field-specific errors and retain entered values when validation fails.",
+      "UC-P01, P03"
+    ],
+    [
+      "FR-P07",
+      "The final system shall enforce role permissions on every protected page and action.",
+      "All product UCs"
+    ]
+  ],
+  "rules": [
+    [
+      "BR-P01",
+      "All product input fields shown in the product form are required.",
+      "Constraint",
+      "FR-P01, P04, P06"
+    ],
+    [
+      "BR-P02",
+      "Selling price must be nonnegative.",
+      "Constraint",
+      "FR-P01, P04, P06"
+    ],
+    [
+      "BR-P03",
+      "Manufacturing cost must be nonnegative.",
+      "Constraint",
+      "FR-P01, P04, P06"
+    ],
+    [
+      "BR-P04",
+      "Finished inventory must be a nonnegative whole number measured in pairs.",
+      "Constraint",
+      "FR-P01, P04, P06"
+    ],
+    [
+      "BR-P05",
+      "Customers may view only active products.",
+      "Policy",
+      "FR-P03"
+    ],
+    [
+      "BR-P06",
+      "Customers must not have access to manufacturing cost.",
+      "Policy",
+      "FR-P03, P07"
+    ],
+    [
+      "BR-P07",
+      "A product with historical transactions must be inactivated instead of permanently deleted.",
+      "Policy",
+      "FR-P05"
+    ],
+    [
+      "BR-P08",
+      "A product with material requirements must not be permanently deleted.",
+      "Constraint",
+      "FR-P05"
+    ],
+    [
+      "BR-P09",
+      "A product with neither material requirements nor historical transactions may be deleted after confirmation.",
+      "Condition",
+      "FR-P05"
+    ],
+    [
+      "BR-P10",
+      "A current selling-price change must not change prices stored on historical order lines.",
+      "Policy",
+      "FR-P04"
+    ],
+    [
+      "BR-P11",
+      "Product IDs must be unique.",
+      "Constraint",
+      "FR-P01, P04"
+    ]
+  ],
+  "acceptance": [
+    [
+      "AT-P01",
+      "WF-P01 form",
+      "FR-P01; BR-P01-04,11",
+      "Given a complete valid product, when Add product is selected, then the prototype assigns a unique ID and shows the new product in this tab."
+    ],
+    [
+      "AT-P02",
+      "WF-P01E errors",
+      "FR-P06; BR-P01-04",
+      "Given missing fields, negative amounts, or fractional stock, when submitted, then the form retains values and identifies each invalid field."
+    ],
+    [
+      "AT-P03",
+      "WF-P02 filters",
+      "FR-P02",
+      "Given sample products, when name/ID, type, or status filters change, then the list and result count reflect all selected filters."
+    ],
+    [
+      "AT-P04",
+      "WF-P02D details",
+      "FR-P02",
+      "Given an existing product, when View is selected, then all product fields including internal cost are displayed in the staff preview."
+    ],
+    [
+      "AT-P05",
+      "WF-P02C catalog",
+      "FR-P03; BR-P05,06",
+      "Given active and inactive products, when the customer catalog opens, then only active products and public fields appear; no cost or employee fields appear in the page."
+    ],
+    [
+      "AT-P06",
+      "WF-P03 edit",
+      "FR-P04; BR-P11",
+      "Given an existing product, when a valid edit is saved, then changed values appear under the same product ID."
+    ],
+    [
+      "AT-P07",
+      "WF-P04 confirm",
+      "FR-P05; BR-P09",
+      "Given P1002 with no dependencies, when Confirm delete is selected, then the record disappears from this tab and a confirmation is shown."
+    ],
+    [
+      "AT-P08",
+      "WF-P04 cancel",
+      "FR-P05",
+      "Given a removal page or an edited form, when Cancel is selected, then the stored sample record is unchanged."
+    ],
+    [
+      "AT-P09",
+      "WF-P04H history",
+      "FR-P05; BR-P07",
+      "Given P1001 with historical transactions, when removal is reviewed, then permanent deletion is unavailable and Confirm mark inactive preserves the record."
+    ],
+    [
+      "AT-P10",
+      "WF-P04B dependencies",
+      "FR-P05; BR-P08",
+      "Given P1003 with material requirements, when removal is reviewed, then deletion is unavailable and an explanation is shown."
+    ],
+    [
+      "AT-P11",
+      "WF-P02 empty state",
+      "FR-P02",
+      "Given a search with no matches, when the list updates, then a no-results explanation and clear-filters action appear."
+    ],
+    [
+      "AT-P12",
+      "WF-P03 price note",
+      "BR-P10",
+      "Given an order-line price in the final database, when current selling price changes, then the historical value remains unchanged. Design-only at midterm."
+    ],
+    [
+      "AT-P13",
+      "Protected screens",
+      "FR-P07; BR-P06",
+      "Given a customer requests a protected URL in the final system, when authorization is checked on the server, then access is denied. Deferred; not implemented by the prototype."
+    ],
+    [
+      "AT-P14",
+      "All product forms",
+      "FR-P01, P04; BR-P02-04",
+      "Given zero price, zero cost, and zero pairs, when all other fields are valid, then the product is accepted."
+    ]
+  ],
+  "traceability": [
+    [
+      "FR-P01",
+      "UC-P01",
+      "WF-P01",
+      "AD-P01",
+      "Product",
+      "AT-P01",
+      "UI demo"
+    ],
+    [
+      "FR-P02",
+      "UC-P02",
+      "WF-P02 / P02D",
+      "AD-P02",
+      "Product",
+      "AT-P03, P04, P11",
+      "UI demo"
+    ],
+    [
+      "FR-P03",
+      "UC-P02",
+      "WF-P02C",
+      "AD-P02",
+      "Product public projection",
+      "AT-P05",
+      "UI demo"
+    ],
+    [
+      "FR-P04",
+      "UC-P03",
+      "WF-P03",
+      "AD-P03",
+      "Product / OrderLine",
+      "AT-P06",
+      "UI demo"
+    ],
+    [
+      "FR-P05",
+      "UC-P04",
+      "WF-P04 / P04H / P04B",
+      "AD-P04",
+      "Product / Product_Material / OrderLine",
+      "AT-P07-P10",
+      "UI demo"
+    ],
+    [
+      "FR-P06",
+      "UC-P01, P03",
+      "WF-P01E / P03",
+      "AD-P01, AD-P03",
+      "Product",
+      "AT-P02",
+      "UI demo"
+    ],
+    [
+      "FR-P07",
+      "All product UCs",
+      "Protected routes in final system",
+      "All",
+      "Employee role / future auth",
+      "AT-P13",
+      "Deferred"
+    ],
+    [
+      "BR-P01",
+      "UC-P01, P03",
+      "WF-P01 / P03",
+      "AD-P01, AD-P03",
+      "Product fields",
+      "AT-P01, P02",
+      "UI demo"
+    ],
+    [
+      "BR-P02",
+      "UC-P01, P03",
+      "WF-P01 / P03",
+      "AD-P01, AD-P03",
+      "Product selling_price",
+      "AT-P02, P14",
+      "UI demo"
+    ],
+    [
+      "BR-P03",
+      "UC-P01, P03",
+      "WF-P01 / P03",
+      "AD-P01, AD-P03",
+      "Product manufacturing_cost",
+      "AT-P02, P14",
+      "UI demo"
+    ],
+    [
+      "BR-P04",
+      "UC-P01, P03",
+      "WF-P01 / P03",
+      "AD-P01, AD-P03",
+      "Product finished_quantity",
+      "AT-P02, P14",
+      "UI demo"
+    ],
+    [
+      "BR-P05",
+      "UC-P02",
+      "WF-P02C",
+      "AD-P02",
+      "Product status",
+      "AT-P05",
+      "UI demo"
+    ],
+    [
+      "BR-P06",
+      "UC-P02",
+      "WF-P02C",
+      "AD-P02",
+      "Public projection / role",
+      "AT-P05, P13",
+      "UI demo"
+    ],
+    [
+      "BR-P07",
+      "UC-P04",
+      "WF-P04H",
+      "AD-P04",
+      "Product / historical transactions",
+      "AT-P09",
+      "UI demo"
+    ],
+    [
+      "BR-P08",
+      "UC-P04",
+      "WF-P04B",
+      "AD-P04",
+      "Product_Material",
+      "AT-P10",
+      "UI demo"
+    ],
+    [
+      "BR-P09",
+      "UC-P04",
+      "WF-P04",
+      "AD-P04",
+      "Product / dependency checks",
+      "AT-P07, P08",
+      "UI demo"
+    ],
+    [
+      "BR-P10",
+      "UC-P03",
+      "WF-P03 note",
+      "AD-P03",
+      "OrderLine unit_price",
+      "AT-P12",
+      "Deferred"
+    ],
+    [
+      "BR-P11",
+      "UC-P01, P03",
+      "WF-P01 / P03",
+      "AD-P01, AD-P03",
+      "Product primary key",
+      "AT-P01, P06",
+      "UI demo"
+    ]
+  ]
+}

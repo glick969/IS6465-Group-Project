@@ -1,0 +1,24 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-P02  Read products\nMidterm activity flow: temporary sample data; no real authentication";
+
+viewer [shape=diamond,label="Viewer preview?",fillcolor="#fff"];
+staff [label="Employee: open product list",fillcolor="#fff5e7"];
+customer [label="Customer: open catalog",fillcolor="#fff5e7"];
+internal [label="Prototype: show internal fields and all statuses"];
+public [label="Prototype: active products and public fields only"];
+mergeFilter [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+filter [label="Actor: enter search or choose filters",fillcolor="#fff5e7"];
+matches [shape=diamond,label="Any matches?",fillcolor="#fff"];
+empty [label="Prototype: show no-results guidance"];
+retry [shape=diamond,label="Change or clear filters?",fillcolor="#fff"];
+results [label="Prototype: show matching records and count"];
+detail [shape=diamond,label="Staff selects View?",fillcolor="#fff"];
+exists [shape=diamond,label="Product exists?",fillcolor="#fff"];
+full [label="Prototype: show staff product details"];
+missing [label="Prototype: show not-found and return link"];
+start -> viewer; viewer -> staff [label="Staff"]; viewer -> customer [label="Customer"];
+staff -> internal -> mergeFilter; customer -> public -> mergeFilter; mergeFilter -> filter -> matches;
+matches -> empty [label="No"]; empty -> retry; retry -> mergeFilter [label="Yes"]; retry -> end [label="No"];
+matches -> results [label="Yes"]; results -> detail;
+detail -> exists [label="Yes"]; detail -> end [label="No / customer"];
+exists -> full [label="Yes"]; full -> end; exists -> missing [label="No"]; missing -> end;
+}

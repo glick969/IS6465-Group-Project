@@ -1,0 +1,23 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-P03  Update product\nMidterm activity flow: temporary sample data; no real authentication";
+
+open [label="Employee: select Edit",fillcolor="#fff5e7"];
+exists [shape=diamond,label="Product exists?",fillcolor="#fff"];
+missing [label="Prototype: show not-found; no editable form"];
+form [label="Prototype: prefill values; retain identity and dependencies"];
+mergeEdit [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+edit [label="Employee: revise or correct values",fillcolor="#fff5e7"];
+action [shape=diamond,label="Employee action?",fillcolor="#fff"];
+cancel [label="Prototype: return to details; keep stored values"];
+valid [shape=diamond,label="Values valid?",fillcolor="#fff"];
+errors [label="Prototype: specific errors; preserve edits"];
+save [label="Prototype: save revised record under the same ID"];
+stored [shape=diamond,label="Storage available?",fillcolor="#fff"];
+failure [label="Prototype: explain failure; preserve edits"];
+success [label="Prototype: show revised details and save message"];
+start -> open -> exists; exists -> missing [label="No"]; missing -> end;
+exists -> form [label="Yes"]; form -> mergeEdit -> edit -> action;
+action -> cancel [label="Cancel"]; cancel -> end;
+action -> valid [label="Save"]; valid -> errors [label="No"]; errors -> mergeEdit;
+valid -> save [label="Yes"]; save -> stored; stored -> success [label="Yes"]; success -> end;
+stored -> failure [label="No"]; failure -> mergeEdit;
+}
