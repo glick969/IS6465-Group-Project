@@ -1,0 +1,164 @@
+digraph ERD {
+  graph [rankdir=LR, bgcolor="white", pad="0.4", nodesep="0.45", ranksep="0.9", splines=polyline,
+         fontname="Arial", fontsize=18, labelloc=t, labeljust=c,
+         label="Kitten Factory ERD  (Member B draft for joint review)\nCrow's foot notation  |  PK = primary key, FK = foreign key  |  Green = Product module, tan = Raw Material module"];
+  node  [shape=plain, fontname="Arial", fontsize=11];
+  edge  [dir=both, color="#526456", penwidth=1.2, arrowsize=1.0, fontname="Arial", fontsize=11, fontcolor="#3d4a40"];
+
+  // ---------- Accounts and people ----------
+  USER_ACCOUNT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>USER_ACCOUNT</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" PORT="pk"><B>PK</B></TD><TD ALIGN="LEFT">user_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">email (unique)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">password_hash</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">role (Customer / Employee / Admin)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">status (Active / Disabled)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">last_login</TD></TR>
+  </TABLE>>];
+
+  CUSTOMER [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>CUSTOMER</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">customer_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">user_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">first_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">last_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">street, city, state, zip</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">phone</TD></TR>
+  </TABLE>>];
+
+  EMPLOYEE [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>EMPLOYEE</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">employee_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">user_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">first_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">last_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">position</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">hire_date</TD></TR>
+  </TABLE>>];
+
+  EMPLOYEE_TRAINING [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>EMPLOYEE_TRAINING</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">training_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">employee_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">training_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">completed_date</TD></TR>
+  </TABLE>>];
+
+  // ---------- Orders ----------
+  ORDERS [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>ORDERS</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">order_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">customer_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">employee_id (nullable)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">order_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">status (Pending / Paid / Shipped / Delivered / Cancelled)</TD></TR>
+  </TABLE>>];
+
+  ORDER_LINE [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>ORDER_LINE</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">line_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">order_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">product_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">quantity (pairs, &gt; 0)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">unit_price (price at time of sale)</TD></TR>
+  </TABLE>>];
+
+  PAYMENT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>PAYMENT</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">payment_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">order_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">payment_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">amount</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">method</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">card_last4 (no full card number)</TD></TR>
+  </TABLE>>];
+
+  SHIPMENT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>SHIPMENT</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">shipment_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">order_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">ship_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">delivery_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">shipping_cost</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">tracking_number</TD></TR>
+  </TABLE>>];
+
+  RETURN_ITEM [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#ffffff">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>RETURN_ITEM</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">return_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">line_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">return_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">quantity (pairs)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">reason (customer feedback)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">refund_amount</TD></TR>
+  </TABLE>>];
+
+  // ---------- Product module (Member A) ----------
+  PRODUCT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#556659" BGCOLOR="#f2f4f1">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>PRODUCT</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">product_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">responsible_employee_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">product_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">ski_type (Park / Powder / Touring)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">size_cm</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">construction_makeup (Full carbon / Hybrid)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">selling_price</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">manufacturing_cost (staff only)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">finished_quantity (pairs, &gt;= 0)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">status (Active / Inactive)</TD></TR>
+  </TABLE>>];
+
+  // ---------- Raw Material module (Member B) ----------
+  PRODUCT_MATERIAL [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a6a3f" BGCOLOR="#fff5e7">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>PRODUCT_MATERIAL</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK, FK</B></TD><TD ALIGN="LEFT">product_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK, FK</B></TD><TD ALIGN="LEFT">material_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">required_quantity (per pair, &gt; 0)</TD></TR>
+  </TABLE>>];
+
+  RAW_MATERIAL [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a6a3f" BGCOLOR="#fff5e7">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>RAW_MATERIAL</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">material_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">material_name</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">description</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">unit_of_measure</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">unit_cost (&gt;= 0)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">quantity_on_hand (&gt;= 0)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">reorder_level (&gt;= 0)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">last_purchase_date</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">status (Active / Inactive)</TD></TR>
+  </TABLE>>];
+
+  INVENTORY_ADJUSTMENT [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#8a6a3f" BGCOLOR="#fff5e7">
+    <TR><TD BGCOLOR="#263d32" COLSPAN="2"><FONT COLOR="white"><B>INVENTORY_ADJUSTMENT</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">adjustment_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">material_id</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">employee_id</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">change_amount (+ delivery / - use)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">reason (Initial count / Delivery / Production use / Correction)</TD></TR>
+    <TR><TD></TD><TD ALIGN="LEFT">adjusted_at</TD></TR>
+  </TABLE>>];
+
+  // ---------- Relationships: tail = parent side, head = child side ----------
+  // teetee = exactly one, teeodot = zero or one, crowodot = zero or many, crowtee = one or many
+  USER_ACCOUNT -> CUSTOMER          [arrowtail=teetee, arrowhead=teeodot, label=" is "];
+  USER_ACCOUNT -> EMPLOYEE          [arrowtail=teetee, arrowhead=teeodot, label=" is "];
+  CUSTOMER     -> ORDERS            [arrowtail=teetee, arrowhead=crowodot, label=" places "];
+  EMPLOYEE     -> ORDERS            [arrowtail=teeodot, arrowhead=crowodot, label=" handles "];
+  ORDERS       -> ORDER_LINE        [arrowtail=teetee, arrowhead=crowtee, label=" contains "];
+  ORDERS       -> PAYMENT           [arrowtail=teetee, arrowhead=crowodot, label=" paid by "];
+  ORDERS       -> SHIPMENT          [arrowtail=teetee, arrowhead=teeodot, label=" ships as "];
+  ORDER_LINE   -> RETURN_ITEM       [arrowtail=teetee, arrowhead=crowodot, label=" returned as "];
+  PRODUCT      -> ORDER_LINE        [arrowtail=teetee, arrowhead=crowodot, label=" sold on "];
+  EMPLOYEE     -> PRODUCT           [arrowtail=teetee, arrowhead=crowodot, label=" responsible for "];
+  EMPLOYEE     -> EMPLOYEE_TRAINING [arrowtail=teetee, arrowhead=crowodot, label=" completes "];
+  PRODUCT      -> PRODUCT_MATERIAL  [arrowtail=teetee, arrowhead=crowodot, label=" requires "];
+  RAW_MATERIAL -> PRODUCT_MATERIAL  [arrowtail=teetee, arrowhead=crowodot, label=" used in "];
+  RAW_MATERIAL -> INVENTORY_ADJUSTMENT [arrowtail=teetee, arrowhead=crowodot, label=" adjusted by "];
+  EMPLOYEE     -> INVENTORY_ADJUSTMENT [arrowtail=teetee, arrowhead=crowodot, label=" records "];
+
+  { rank=same; CUSTOMER; EMPLOYEE; }
+  { rank=same; ORDERS; PRODUCT; EMPLOYEE_TRAINING; }
+  { rank=same; ORDER_LINE; PRODUCT_MATERIAL; INVENTORY_ADJUSTMENT; }
+  { rank=same; RETURN_ITEM; PAYMENT; SHIPMENT; RAW_MATERIAL; }
+}

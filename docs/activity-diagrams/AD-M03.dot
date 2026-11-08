@@ -1,0 +1,35 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-M03  Update raw material\nMidterm activity flow: temporary sample data; no real authentication";
+
+open [label="Employee: select Edit",fillcolor="#fff5e7"];
+exists [shape=diamond,label="Material exists?",fillcolor="#ffffff"];
+missing [label="Prototype: show not-found; no editable form"];
+form [label="Prototype: prefill details; show quantity on hand read only"];
+mergeEdit [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+edit [label="Employee: revise details or enter
+stock-change reason, amount, and employee",fillcolor="#fff5e7"];
+action [shape=diamond,label="Employee action?",fillcolor="#ffffff"];
+cancel [label="Prototype: return to details; keep stored values"];
+validD [shape=diamond,label="Details valid and
+name unique?",fillcolor="#ffffff"];
+validA [shape=diamond,label="Reason, amount > 0,
+and employee given?",fillcolor="#ffffff"];
+errors [label="Prototype: specific errors; preserve entries"];
+zero [shape=diamond,label="New quantity >= 0?",fillcolor="#ffffff"];
+reject [label="Prototype: reject; state quantity on hand"];
+saveD [label="Prototype: save details under the same ID"];
+saveA [label="Prototype: apply signed change; log reason,
+employee, and time; deliveries update purchase date"];
+mergeSave [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+stored [shape=diamond,label="Storage available?",fillcolor="#ffffff"];
+failure [label="Prototype: explain failure; preserve entries"];
+success [label="Prototype: show revised details, history, and save message"];
+start -> open -> exists; exists -> missing [label="No"]; missing -> end;
+exists -> form [label="Yes"]; form -> mergeEdit -> edit -> action;
+action -> cancel [label="Cancel"]; cancel -> end;
+action -> validD [label="Save details"]; validD -> errors [label="No"]; validD -> saveD [label="Yes"];
+action -> validA [label="Record adjustment"]; validA -> errors [label="No"]; validA -> zero [label="Yes"];
+zero -> reject [label="No"]; reject -> mergeEdit; zero -> saveA [label="Yes"];
+errors -> mergeEdit;
+saveD -> mergeSave; saveA -> mergeSave; mergeSave -> stored;
+stored -> success [label="Yes"]; success -> end; stored -> failure [label="No"]; failure -> mergeEdit;
+}

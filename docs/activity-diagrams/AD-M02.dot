@@ -1,0 +1,25 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-M02  Read raw materials\nMidterm activity flow: temporary sample data; no real authentication";
+
+staff [label="Employee: open Raw materials",fillcolor="#fff5e7"];
+list [label="Prototype: show records, summary counts,
+and low-stock indicators"];
+mergeFilter [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+filter [label="Employee: enter search or choose
+stock-level and status filters",fillcolor="#fff5e7"];
+matches [shape=diamond,label="Any matches?",fillcolor="#ffffff"];
+empty [label="Prototype: show no-results guidance"];
+retry [shape=diamond,label="Change or clear filters?",fillcolor="#ffffff"];
+results [label="Prototype: show matching records and count"];
+detail [shape=diamond,label="Employee selects View?",fillcolor="#ffffff"];
+exists [shape=diamond,label="Material exists?",fillcolor="#ffffff"];
+full [label="Prototype: show details, product links, and stock history"];
+low [shape=diamond,label="At or below reorder level?",fillcolor="#ffffff"];
+warn [label="Prototype: show low-stock warning"];
+missing [label="Prototype: show not-found and return link"];
+start -> staff -> list -> mergeFilter -> filter -> matches;
+matches -> empty [label="No"]; empty -> retry; retry -> mergeFilter [label="Yes"]; retry -> end [label="No"];
+matches -> results [label="Yes"]; results -> detail;
+detail -> exists [label="Yes"]; detail -> end [label="No"];
+exists -> full [label="Yes"]; full -> low; low -> warn [label="Yes"]; warn -> end; low -> end [label="No"];
+exists -> missing [label="No"]; missing -> end;
+}

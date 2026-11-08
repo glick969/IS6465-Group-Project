@@ -1,0 +1,31 @@
+digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", ranksep="0.35", fontname="Arial", fontsize=16, labelloc=t]; node [shape=box,style="rounded,filled",fillcolor="#f2f4f1",color="#556659",fontname="Arial",fontsize=12,margin="0.15,0.10"]; edge [fontname="Arial",fontsize=10,color="#526456"]; start [shape=circle,label="",width=.16,style=filled,fillcolor="#263d32"]; end [shape=doublecircle,label="",width=.2,style=filled,fillcolor="#263d32"]; label="AD-M04  Delete or inactivate raw material\nMidterm activity flow: temporary sample data; no real authentication";
+
+open [label="Employee: select removal option",fillcolor="#fff5e7"];
+exists [shape=diamond,label="Material exists?",fillcolor="#ffffff"];
+missing [label="Prototype: not-found; no change"];
+links [shape=diamond,label="Product links or delivery /
+production history?",fillcolor="#ffffff"];
+stock [shape=diamond,label="Stock on hand above zero?",fillcolor="#ffffff"];
+historyUI [label="Prototype: block deletion; offer inactivation"];
+stockUI [label="Prototype: explain stock blocker; offer
+inactivation or a count correction"];
+eligibleUI [label="Prototype: show eligible deletion confirmation"];
+mergeOptions [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
+action [shape=diamond,label="Employee confirms
+permitted action?",fillcolor="#ffffff"];
+cancel [label="Prototype: keep record; return to details"];
+correct [label="Prototype: open stock adjustment form (UC-M03)"];
+mutate [label="Prototype: recheck rules; delete eligible record
+or set material Inactive"];
+storage [shape=diamond,label="Temporary save succeeds?",fillcolor="#ffffff"];
+success [label="Prototype: return to list with explicit outcome"];
+failure [label="Prototype: show storage failure; no success claim"];
+start -> open -> exists; exists -> missing [label="No"]; missing -> end;
+exists -> links [label="Yes"]; links -> historyUI [label="Yes"]; links -> stock [label="No"];
+stock -> stockUI [label="Yes"]; stock -> eligibleUI [label="No"];
+historyUI -> mergeOptions; stockUI -> mergeOptions; eligibleUI -> mergeOptions; mergeOptions -> action;
+action -> cancel [label="No / already inactive"]; cancel -> end;
+action -> correct [label="Record a correction\n(stock blocker only)"]; correct -> end;
+action -> mutate [label="Yes"]; mutate -> storage;
+storage -> success [label="Yes"]; success -> end; storage -> failure [label="No"]; failure -> end;
+}
