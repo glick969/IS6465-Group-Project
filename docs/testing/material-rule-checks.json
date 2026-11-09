@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "Unused zero-stock material is deletable and its unit is editable.",
+    "Initial count history blocks deletion and locks unit.",
+    "Correction history blocks deletion and locks unit.",
+    "Delivery history blocks deletion and locks unit.",
+    "Production use history blocks deletion and locks unit.",
+    "Positive stock blocks deletion and locks unit.",
+    "Product link blocks deletion and locks unit.",
+    "Save handler retains the stored unit when locked."
+  ]
+}

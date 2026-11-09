@@ -1,63 +1,68 @@
 # Kitten Factory midterm project
 
-This package combines both members' midterm work. Member A's agreed work in English: Product Management CRUD, home page, shared layout/CSS, product use case documents and activity diagrams, wireframes, overall use case model draft, product requirements, and a reflection contribution.
+Kitten Factory is a front-end prototype for a ski manufacturing company. This combined group package contains Product Management, Raw Material Management, a home page, and a demonstration login page. HTML/CSS pages are saved with the PHP extension, with supplemental JavaScript for validation and temporary interactions. No database is connected.
 
-## Run
+## Run the project
 
-From the package root in a PHP-enabled environment (such as the course Codespace):
+In the course PHP-enabled environment, open a terminal in this folder:
 
 ```sh
 php -S localhost:8000
 ```
 
-Open http://localhost:8000/index.php. Pages contain HTML/CSS and browser JavaScript and are saved as PHP files. No server-side PHP logic, third-party library, build step, database, credentials, or external asset download is required. JavaScript must be enabled for the interactive product demo. For local environments without PHP, `python3 preview.py` serves the HTML-only PHP files for preview; this does not execute PHP.
+Open http://localhost:8000/index.php. There is no build step, package installation, database setup, or external asset dependency. JavaScript must be enabled for interactive demonstrations.
 
-## Demonstrate
+If PHP is unavailable, `python3 preview.py` serves these HTML-only PHP pages for local preview; it does not execute PHP. Passing this preview is not evidence of a PHP runtime test.
 
-1. Open Products and add a complete product. Follow the success message to its details.
-2. Edit price or inventory, save, and verify the same product ID.
-3. Search by name/ID and combine type/status filters. Clear filters or try an unmatched name.
-4. Open the customer catalog; only active public fields appear. Same-tab staff changes are reflected when returning to the catalog.
-5. Review P1002 for eligible deletion; Cancel first, then confirm.
-6. Review P1001 for historical-transaction inactivation and P1003 for material-link blocking.
-7. Reset sample data from the Products page when needed.
+## Pages and demonstrations
 
-Raw materials  Tyler):
+| Area | Start page | Demonstration |
+|---|---|---|
+| Home | index.php | Navigate to both modules and the public catalog |
+| Login | security/login.php | Fictional employee, administrator, and customer accounts |
+| Products | products/index.php | Create, search/view, edit, and delete/inactivate products |
+| Customer catalog | products/catalog.php | Active products and public fields only |
+| Raw materials | materials/index.php | Create, search/view, edit/adjust stock, and delete/inactivate materials |
 
-8. Open Raw materials. Three active materials are flagged low stock; filter by Low stock only.
-9. Add a material. Try a duplicate name or a negative cost to see validation, then save with a starting quantity; the view page shows an Initial count entry.
-10. Edit Epoxy resin (M2003). Try using 10 L in production to see the below-zero rule, then record a 12 L delivery; the low-stock flag clears and the purchase date updates.
-11. Removal rules: M2001 has product links and history (inactivate only), M2004 still has stock (inactivate only), M2006 has zero stock, no links, and no history (delete after confirmation). Any stock adjustment, including an initial count or correction, counts as history.
-12. Unit lock: on Edit, the unit is locked for materials with stock, history, or product links (try M2003); it stays editable for M2006.
-13. Sign in at Login with a fictional account listed on the page. Employees and admins go to Raw materials; customers go to the catalog. Five wrong passwords pause the form for 30 seconds.
+Product examples: P1002 has no dependencies and can be deleted after confirmation; P1001 has transaction history and can be inactivated; P1003 has material requirements that block deletion. A product price update retains its ID. Product stock uses whole pairs; prices and manufacturing costs must be nonnegative.
 
-Temporary records use sessionStorage in the current tab. They do not persist as real inventory. Reset replaces sample records and discards temporary edits; a separate ID counter intentionally continues to avoid ID reuse. Public and staff views are demonstrations, not access controls. Anyone able to access this prototype can open staff URLs. Never use real sensitive data.
+Material examples: M2003 demonstrates stock adjustments and low-stock indicators. Production use cannot reduce stock below zero. Every adjustment records its reason, employee, amount, and time. Any adjustment, including an initial count or correction, is inventory history and prevents permanent deletion. M2006 has zero stock, no links, and no history, so it is the eligible deletion example. Units are locked when stock, any adjustment history, or product links exist.
 
-## Documents
+Login uses the fictional accounts displayed on its page with the password `Workshop-2026`. Employee/admin demonstrations open Raw materials; customer demonstrations open the catalog. Incorrect credentials produce a general error; five failed attempts pause the form for 30 seconds. These behaviors are demonstrations, not real authentication or protection against attacks. Client-side SHA-256 is not the final application's password-storage design.
 
-- `docs/requirements/Product_Requirements_and_Business_Rules.docx`: completed product-side course template with traceability and acceptance criteria.
-- `docs/use-cases/`: four individual use case DOCX files and an editable Markdown mirror.
-- `docs/design-atlas.html`: visual use case model, four activity diagrams, and nine low-fidelity wireframes; open in a browser.
-- `docs/use-case-model/`, `docs/activity-diagrams/`, `docs/wireframes/`: standalone SVG/PNG assets and editable source for diagrams.
-- `docs/reflection/Member_A_Reflection.md`: reflection contribution to combine with teammate's text.
-- `docs/testing/verification.md`: checks actually performed and outstanding human review.
-- `docs/HANDOFF.md`: module ownership, merge instructions, fields, and ERD contract.
+Temporary changes are stored in sessionStorage for the current tab. The reset controls restore sample records; counters can continue to avoid reusing IDs. Staff pages remain directly accessible. Do not enter real credentials or sensitive information.
 
-## Tyler's contribution
+## Submission documents
 
-- `security/login.php` and `assets/js/login.js`: login page (UC-A01). Demo accounts only; passwords compared as SHA-256 hashes in the browser to illustrate never storing plain text. This is not real authentication.
-- `materials/index.php`, `create.php`, `view.php`, `edit.php`, `delete.php` with `assets/js/materials.js` and `assets/js/material-fixtures.js`: Raw Material Management CRUD (UC-M01 to UC-M04), including stock adjustments with a reason and employee, low-stock indicators, and delete-or-inactivate rules.
-- `DB/ERD.png`, `DB/ERD.svg`, `DB/ERD.dot`, `DB/data-dictionary.md`: ERD draft and data dictionary for joint review.
-- `docs/use-cases/UC-M01` to `UC-M04` DOCX files and `material-use-cases.md`: raw material use case documents built on the same course template as the product use cases.
-- `docs/activity-diagrams/AD-M01` to `AD-M04` (DOT source, SVG, PNG): raw material activity diagrams.
-- `docs/wireframes/WF-M01` to `WF-M04S` and `WF-A01` (SVG, PNG): raw material and login wireframes.
-- Shared navigation and the home page card now link to the real login and raw material pages; the temporary integration page was removed. Tyler styles were appended to the end of `assets/css/styles.css` without changing existing rules.
+| Deliverable | Location |
+|---|---|
+| All diagrams and ERD in one visual index | [Design atlas](docs/design-atlas.html) |
+| Overall use case model and login model | docs/use-case-model/ |
+| Eight CRUD use case documents | docs/use-cases/UC-P01 through UC-P04 and UC-M01 through UC-M04 DOCX files |
+| Eight activity diagrams | docs/activity-diagrams/ (DOT, SVG, PNG) |
+| Product, material, and login wireframes | docs/wireframes/ (SVG, PNG) |
+| ERD and data dictionary | [ERD SVG](DB/ERD.svg), [ERD PNG](DB/ERD.png), [data dictionary](DB/data-dictionary.md) |
+| Product requirements and business rules | docs/requirements/Product_Requirements_and_Business_Rules.docx |
+| Team scope and artifact traceability | [Team traceability](docs/requirements/Team_Scope_and_Traceability.md) |
+| Combined ethics and critical thinking reflection | [Team reflection](docs/reflection/Team_Reflection.md) |
+| Current checks and remaining verification | [Verification record](docs/testing/verification.md) |
 
-## Scope remaining for the group
- Tyler's reflection contribution is in `docs/reflection/Member_B_Reflection.md`. Both members must add the material use cases (UC-M01 to UC-M04) to the overall use case model. Both members must review shared artifacts, complete the combined reflection, record actual contributions, and prepare the final group ZIP and repository link.
+SVG files support zooming; PNGs are convenient for inclusion in documents. Open the design atlas in a browser to review both modules and the proposed data model. Orders, payments, shipping, and returns in the ERD describe later application scope and are not implemented pages in this midterm.
+
+## Team contributions
+
+- Product Management contributor (Member A): product pages and supporting documents, home page, shared styling, overall use case model, product requirements, and reflection contribution; combined documentation and atlas cleanup.
+- Tyler Glick (Member B): login and raw material pages, material documents and diagrams, ERD/data dictionary, reflection contribution, and revised material history/unit rules.
+- Both members: review the shared design, explain the submitted work, record their actual contributions, and perform the final merged-project check. Author names and approvals should reflect actual student review.
+
+## Verification status
+
+The latest material history/unit rules passed isolated checks using the actual JavaScript functions. The package was also checked for file completeness, local page/asset links, JavaScript syntax, diagram XML, and use case content consistency. The updated Word requirements document was rendered and visually reviewed. Current merged browser results and screenshot evidence are included; historical Member A browser tests are labeled separately.
+
+The planned full merged front-end browser pass is complete: 65 assertions passed, with 39 responsive checks and a clean 13-page console sweep. See docs/testing/Browser_Verification_Report.md. PHP-engine startup in the course environment remains a separate check because this computer has no PHP runtime. Database authorization and historical transaction persistence are future work, not requirements implemented by this front-end prototype. See the verification record for the limits of each check.
 
 ## Sources and AI assistance
 
-Based on the supplied Kitten Factory Project Proposal, the two supplied IS6465 lectures, the SAD Requirements and Business Rules Template, and the pasted midterm instructions/screenshots. Canvas module/video contents were not accessible and have not been claimed as reviewed. The home illustration and mark are original SVG artwork; no outside image assets or UI framework are used.
+Project context comes from the supplied Kitten Factory proposal, two IS6465 lectures, SAD requirements template, and pasted midterm instructions. The original SVG logo and ski illustration were created for this prototype.
 
-AI assistance drafted this package and performed the recorded automated checks. No student review, authorship attestation, teammate approval, or GitHub submission is claimed. Students remain responsible for understanding, reviewing, and validating the final work under course policy.
+AI assisted with drafting code, documentation, diagrams, and checks. Both students remain responsible for reviewing, understanding, and validating what they submit under course policy. No student sign-off, GitHub upload, or Canvas submission is implied by this package.

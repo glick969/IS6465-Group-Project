@@ -1,0 +1,700 @@
+{
+  "environment": "ChatGPT in-app browser; local HTML-only PHP preview",
+  "results": [
+    {
+      "name": "Login required fields",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Enter your email address. Enter your password."
+    },
+    {
+      "name": "Password visibility toggle",
+      "passed": true,
+      "evidence": "Show switched input to text"
+    },
+    {
+      "name": "Login invalid email",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Enter an email address in the format name@example.com."
+    },
+    {
+      "name": "Generic wrong-credentials message",
+      "passed": true,
+      "evidence": "The email or password is incorrect."
+    },
+    {
+      "name": "Five attempts lock sign-in",
+      "passed": true,
+      "evidence": "Too many failed attempts. Try again in 30 seconds."
+    },
+    {
+      "name": "Product required fields",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Enter a product name. Select Park, Powder, or Touring. Select Full carbon or Hybrid. Enter a positive whole number of centimeters. Enter a nonnegative whole number of pairs. Enter a nonnegative USD amount with up to two decimal places. Enter a nonnegative USD amount with up to two decimal places. Select a responsible employee."
+    },
+    {
+      "name": "Product negative amounts and fractional pairs rejected",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Enter a nonnegative whole number of pairs. Enter a nonnegative USD amount with up to two decimal places. Enter a nonnegative USD amount with up to two decimal places."
+    },
+    {
+      "name": "Product create at zero boundaries",
+      "passed": true,
+      "evidence": "Products / Product details\nProduct added to this tab’s sample data.\nP1005 / PRODUCT DETAILS\nBrowser QA Ski\n\nPowder · 180 cm · Hybrid   Active\n\nEdit product\nBrowser QA Ski\nSpecifications and pricing\nProduct ID\nP1005\nResponsible employee\nE01 · Alex Morgan\nSki type\nPowder\nSize\n180 cm\nConstruction\nHybrid\nStatus\nActive\nSelling price\n$0.00\nManufacturing cost · internal\n$0.00\nFINISHED INVENTORY\n0 pairs\n\nOut of stock. No finished pairs currently available.\n\nFinished pairs are tracked separately from raw material quantities.\n\nRemove or discontinue\n\nThis fictional record has no material requirements or historical transactions. Removing it affects only this tab’s sample data.\n\nSample dependencies: 0 material requirements · no historical transactions.\n\nDelete product\nBack to products"
+    },
+    {
+      "name": "Product update retains ID",
+      "passed": true,
+      "evidence": "Products / Product details\nProduct changes saved to this tab’s sample data.\nP1005 / PRODUCT DETAILS\nBrowser QA Ski\n\nPowder · 180 cm · Hybrid   Active\n\nEdit product\nBrowser QA Ski\nSpecifications and pricing\nProduct ID\nP1005\nResponsible employee\nE01 · Alex Morgan\nSki type\nPowder\nSize\n180 cm\nConstruction\nHybrid\nStatus\nActive\nSelling price\n$799.25\nManufacturing cost · internal\n$0.00\nFINISHED INVENTORY\n5 pairs\n\nFinished stock available in the workshop.\n\nFinished pairs are tracked separately from raw material quantities.\n\nRemove or discontinue\n\nThis fictional record has no material requirements or historical transactions. Removing it affects only this tab’s sample data.\n\nSample dependencies: 0 material requirements · no historical transactions.\n\nDelete product\nBack to products"
+    },
+    {
+      "name": "Product reload preserves temporary edit",
+      "passed": true,
+      "evidence": "Reload retained $799.25"
+    },
+    {
+      "name": "Product cancel preserves price",
+      "passed": true,
+      "evidence": "Unsaved 42 discarded"
+    },
+    {
+      "name": "Public catalog projects active public fields",
+      "passed": true,
+      "evidence": "CUSTOMER VIEW / UC-P02\nFind your next pair.\n\nCarbon skis for park days, deep snow, and the climb beyond.\n\nBack to home\n\nCustomer interface preview. Only active products, public specifications, selling prices, and availability are shown.\n\nSearch products\nSki type\nAll types\nPark\nPowder\nTouring\nClear filters\n\n4 active products\n\nPOWDER / 180 CM\nAlpine Powder 180\n\nHybrid construction\n\n$849.00\nIn stock\n\nPrice per pair · USD\n\nPARK / 172 CM\nWorkshop Park 172\n\nHybrid construction\n\n$629.00\nIn stock\n\nPrice per pair · USD\n\nTOURING / 178 CM\nRidgeline Touring 178\n\nFull carbon construction\n\n$1,099.00\nOut of stock\n\nPrice per pair · USD\n\nPOWDER / 180 CM\nBrowser QA Ski\n\nHybrid construction\n\n$799.25\nIn stock\n\nPrice per pair · USD"
+    },
+    {
+      "name": "Catalog empty result",
+      "passed": true,
+      "evidence": "Customer no-results state"
+    },
+    {
+      "name": "Catalog type filter",
+      "passed": true,
+      "evidence": "One touring product"
+    },
+    {
+      "name": "Product combined filters empty",
+      "passed": true,
+      "evidence": "P1001 + Powder + Inactive has no match"
+    },
+    {
+      "name": "Product combined filters match",
+      "passed": true,
+      "evidence": "P1001 + Powder + Active matches"
+    },
+    {
+      "name": "Product delete cancellation",
+      "passed": true,
+      "evidence": "Record retained"
+    },
+    {
+      "name": "Product eligible deletion",
+      "passed": true,
+      "evidence": "WORKSHOP / EMPLOYEE DEMONSTRATION\nProduct management\n\nSpecifications, pricing, and finished stock. Quantities are measured in pairs.\n\n+ Add product\nProduct removed from this tab’s sample data.\n4\nTotal product records\n3\nActive products\n15\nFinished pairs · all records\nSearch by name or ID\nSki type\nAll types\nPark\nPowder\nTouring\nStatus\nAll statuses\nActive\nInactive\nClear filters\n\n4 of 4 product records\n\nProduct records · internal employee view\nPRODUCT\tSPECIFICATIONS\tSELLING PRICE\tMFG. COST\tSTOCK\tSTATUS\tACTIONS\n\nAlpine Powder 180\nP1001\n\tPowder · 180 cm\nHybrid\n\t$849.00\t$410.00\t5 pairs\tActive\t\nView\nAlpine Powder 180\nEdit\nAlpine Powder 180\nRemove\nAlpine Powder 180\n\n\nWorkshop Park 172\nP1002\n\tPark · 172 cm\nHybrid\n\t$629.00\t$295.00\t8 pairs\tActive\t\nView\nWorkshop Park 172\nEdit\nWorkshop Park 172\nRemove\nWorkshop Park 172\n\n\nRidgeline Touring 178\nP1003\n\tTouring · 178 cm\nFull carbon\n\t$1,099.00\t$530.00\t0 pairs\nOut of stock\n\tActive\t\nView\nRidgeline Touring 178\nEdit\nRidgeline Touring 178\nRemove\nRidgeline Touring 178\n\n\nArchive Powder 184\nP1004\n\tPowder · 184 cm\nFull carbon\n\t$899.00\t$450.00\t2 pairs\tInactive\t\nView\nArchive Powder 184\nEdit\nArchive Powder 184\nRemove\nArchive Powder 184\n\nDemo edits last for this browser tab. Reset sample data"
+    },
+    {
+      "name": "Product history disables deletion",
+      "passed": true,
+      "evidence": "Historical product delete disabled"
+    },
+    {
+      "name": "Product inactivation hides public record",
+      "passed": true,
+      "evidence": "Inactive product omitted"
+    },
+    {
+      "name": "Product material link blocks deletion",
+      "passed": true,
+      "evidence": "Products / Remove product\nUC-P04 / EMPLOYEE DEMONSTRATION\nRemove product\n\nCheck the product and its dependencies before making a change.\n\nRidgeline Touring 178 / P1003\n\nTouring · 178 cm · 0 pairs · Active\n\nMaterial requirements prevent deletion\n\nThis product has 2 material requirements. Review and remove those links in the future material-requirements workflow before deleting. You can mark the product inactive now.\n\nMaterial requirements: 2. Historical transactions: none.\n\nPermanent deletion is blocked. The material-requirements editor belongs to a later integration.\n\nDelete unavailable\nConfirm mark inactive\nCancel and keep product\n\nNo change happens until you confirm. All changes are temporary demo changes."
+    },
+    {
+      "name": "Login lock expires",
+      "passed": true,
+      "evidence": "Sign-in enabled after elapsed real time"
+    },
+    {
+      "name": "Employee sign-in redirects to materials",
+      "passed": true,
+      "evidence": "Employee login reached materials"
+    },
+    {
+      "name": "Low-stock filter includes threshold equality",
+      "passed": true,
+      "evidence": "Three active low-stock materials including zero at zero threshold"
+    },
+    {
+      "name": "Material empty search",
+      "passed": true,
+      "evidence": "No matching materials message"
+    },
+    {
+      "name": "Material required-field validation",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Enter a material name. Select a unit of measure. Enter a nonnegative USD amount with up to two decimal places. Enter a reorder level of zero or more, up to two decimal places. Enter a starting quantity of zero or more, up to two decimal places. Select the employee recording this material."
+    },
+    {
+      "name": "Material duplicate and negative inputs",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. A material with this name already exists (M2003). Enter a nonnegative USD amount with up to two decimal places. Enter a reorder level of zero or more, up to two decimal places. Enter a starting quantity of zero or more, up to two decimal places."
+    },
+    {
+      "name": "Material create decimals and initial history",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nMaterial added to this tab’s sample data.\nM2007 / MATERIAL DETAILS\nBrowser QA Carbon\n\n$2.50 per kg   Active Low stock\n\nEdit or adjust stock\nBrowser QA Carbon\nLow stock. 1.5 kg on hand is at or below the reorder level of 1.5 kg. Consider reordering before production is delayed.\nMaterial information\nMaterial ID\nM2007\nStatus\nActive\nUnit of measure\nkg\nUnit cost · internal\n$2.50\nReorder level\n1.5 kg\nMost recent purchase\nNone recorded\nDescription\n—\nQUANTITY ON HAND\n1.5 kg\n\nStock value: $3.75\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\n\nNot linked to any product.\n\nStock change history\nStock adjustments for Browser QA Carbon, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNov 8, 2026, 10:25 PM\tInitial count\t+1.5 kg\tE01 · Alex Morgan\nRemove or retire\n\nPermanent deletion is unavailable because it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nReview removal options\nBack to raw materials"
+    },
+    {
+      "name": "Material stock/history locks unit",
+      "passed": true,
+      "evidence": "New material with initial count has disabled unit"
+    },
+    {
+      "name": "Material detail update retains unit and ID",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nMaterial details saved to this tab’s sample data.\nM2007 / MATERIAL DETAILS\nBrowser QA Carbon\n\n$3.75 per kg   Active Low stock\n\nEdit or adjust stock\nBrowser QA Carbon\nLow stock. 1.5 kg on hand is at or below the reorder level of 1.5 kg. Consider reordering before production is delayed.\nMaterial information\nMaterial ID\nM2007\nStatus\nActive\nUnit of measure\nkg\nUnit cost · internal\n$3.75\nReorder level\n1.5 kg\nMost recent purchase\nNone recorded\nDescription\n—\nQUANTITY ON HAND\n1.5 kg\n\nStock value: $5.63\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\n\nNot linked to any product.\n\nStock change history\nStock adjustments for Browser QA Carbon, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNov 8, 2026, 10:25 PM\tInitial count\t+1.5 kg\tE01 · Alex Morgan\nRemove or retire\n\nPermanent deletion is unavailable because it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nReview removal options\nBack to raw materials"
+    },
+    {
+      "name": "Material cancel discards unsaved edit",
+      "passed": true,
+      "evidence": "99 not saved"
+    },
+    {
+      "name": "Stock adjustment requires reason amount employee",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. Select the reason for this stock change. Enter an amount greater than zero, up to two decimal places. Select the employee making this change."
+    },
+    {
+      "name": "Below-zero stock rejected",
+      "passed": true,
+      "evidence": "Please correct the highlighted fields. This would reduce inventory below zero. Only 1.5 kg is on hand."
+    },
+    {
+      "name": "Correction reaches exact zero with audit entry",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nStock adjustment recorded in this tab’s sample data.\nM2007 / MATERIAL DETAILS\nBrowser QA Carbon\n\n$3.75 per kg   Active Low stock\n\nEdit or adjust stock\nBrowser QA Carbon\nLow stock. 0 kg on hand is at or below the reorder level of 1.5 kg. Consider reordering before production is delayed.\nMaterial information\nMaterial ID\nM2007\nStatus\nActive\nUnit of measure\nkg\nUnit cost · internal\n$3.75\nReorder level\n1.5 kg\nMost recent purchase\nNone recorded\nDescription\n—\nQUANTITY ON HAND\n0 kg\n\nStock value: $0.00\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\n\nNot linked to any product.\n\nStock change history\nStock adjustments for Browser QA Carbon, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNov 8, 2026, 10:26 PM\tCorrection\t−1.5 kg\tE02 · Sam Rivera\nNov 8, 2026, 10:25 PM\tInitial count\t+1.5 kg\tE01 · Alex Morgan\nRemove or retire\n\nPermanent deletion is unavailable because it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nReview removal options\nBack to raw materials"
+    },
+    {
+      "name": "Initial count and correction protect zero-stock material",
+      "passed": true,
+      "evidence": "Raw materials / Remove material\nUC-M04 / EMPLOYEE DEMONSTRATION\nRemove raw material\n\nCheck the material’s stock, product links, and history before making a change.\n\nBrowser QA Carbon / M2007\n\n0 kg on hand · Active\n\nPreserve this material’s history\n\nPermanent deletion is unavailable because it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nProduct links: 0. Stock history records: 2.\n\nDelete unavailable\nConfirm mark inactive\nCancel and keep material\n\nNo change happens until you confirm. All changes are temporary demo changes."
+    },
+    {
+      "name": "Material inactivation succeeds",
+      "passed": true,
+      "evidence": "Record retained as inactive"
+    },
+    {
+      "name": "Existing linked material unit locked",
+      "passed": true,
+      "evidence": "M2003 linked/history unit disabled"
+    },
+    {
+      "name": "Delivery updates quantity purchase date and history",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nStock adjustment recorded in this tab’s sample data.\nM2003 / MATERIAL DETAILS\nEpoxy resin\n\n$19.75 per L   Active\n\nEdit or adjust stock\nEpoxy resin\nMaterial information\nMaterial ID\nM2003\nStatus\nActive\nUnit of measure\nL\nUnit cost · internal\n$19.75\nReorder level\n8 L\nMost recent purchase\n2026-11-08\nDescription\nTwo-part laminating resin.\nQUANTITY ON HAND\n16 L\n\nStock value: $316.00\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\nAlpine Powder 180 / P1001\nRidgeline Touring 178 / P1003\nStock change history\nStock adjustments for Epoxy resin, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNov 8, 2026, 10:26 PM\tDelivery\t+12 L\tE01 · Alex Morgan\nOct 28, 2026, 2:05 PM\tProduction use\t−3 L\tE01 · Alex Morgan\nRemove or retire\n\nPermanent deletion is unavailable because it is used in 2 products and it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nReview removal options\nBack to raw materials"
+    },
+    {
+      "name": "Production use triggers low stock at exact threshold",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nStock adjustment recorded in this tab’s sample data.\nM2003 / MATERIAL DETAILS\nEpoxy resin\n\n$19.75 per L   Active Low stock\n\nEdit or adjust stock\nEpoxy resin\nLow stock. 8 L on hand is at or below the reorder level of 8 L. Consider reordering before production is delayed.\nMaterial information\nMaterial ID\nM2003\nStatus\nActive\nUnit of measure\nL\nUnit cost · internal\n$19.75\nReorder level\n8 L\nMost recent purchase\n2026-11-08\nDescription\nTwo-part laminating resin.\nQUANTITY ON HAND\n8 L\n\nStock value: $158.00\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\nAlpine Powder 180 / P1001\nRidgeline Touring 178 / P1003\nStock change history\nStock adjustments for Epoxy resin, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNov 8, 2026, 10:26 PM\tProduction use\t−8 L\tE02 · Sam Rivera\nNov 8, 2026, 10:26 PM\tDelivery\t+12 L\tE01 · Alex Morgan\nOct 28, 2026, 2:05 PM\tProduction use\t−3 L\tE01 · Alex Morgan\nRemove or retire\n\nPermanent deletion is unavailable because it is used in 2 products and it has stock history. Mark it inactive to retire it while keeping usage and cost history for reporting.\n\nReview removal options\nBack to raw materials"
+    },
+    {
+      "name": "Unused material unit remains editable",
+      "passed": true,
+      "evidence": "M2006 unit editable"
+    },
+    {
+      "name": "Material delete cancellation",
+      "passed": true,
+      "evidence": "M2006 retained"
+    },
+    {
+      "name": "Material eligible deletion",
+      "passed": true,
+      "evidence": "WORKSHOP / EMPLOYEE DEMONSTRATION\nRaw material management\n\nProduction inputs, costs, and stock levels. Low-stock items need reordering.\n\n+ Add material\nMaterial removed from this tab’s sample data.\n6\nTotal material records\n2\nActive materials at or below reorder level\n$3,203.00\nStock value · active materials\nSearch by name or ID\nStock level\nAll stock levels\nLow stock only\nAbove reorder level\nStatus\nAll statuses\nActive\nInactive\nClear filters\n\n6 of 6 material records\n\nRaw material records · internal employee view\nMATERIAL\tUNIT\tUNIT COST\tON HAND\tREORDER LEVEL\tSTATUS\tACTIONS\n\nCarbon fiber fabric\nM2001\n\tsq m\t$28.50\t74 sq m\t20 sq m\tActive\t\nView\nCarbon fiber fabric\nEdit\nCarbon fiber fabric\nRemove\nCarbon fiber fabric\n\n\nPaulownia wood core\nM2002\n\teach\t$42.00\t18 each Low stock\t20 each\tActive\t\nView\nPaulownia wood core\nEdit\nPaulownia wood core\nRemove\nPaulownia wood core\n\n\nEpoxy resin\nM2003\n\tL\t$19.75\t8 L Low stock\t8 L\tActive\t\nView\nEpoxy resin\nEdit\nEpoxy resin\nRemove\nEpoxy resin\n\n\nP-Tex base material\nM2004\n\tsq m\t$15.00\t12 sq m\t5 sq m\tActive\t\nView\nP-Tex base material\nEdit\nP-Tex base material\nRemove\nP-Tex base material\n\n\nABS sidewall strip\nM2005\n\tm\t$3.10\t0 m\t0 m\tInactive\t\nView\nABS sidewall strip\nEdit\nABS sidewall strip\nRemove\nABS sidewall strip\n\n\nBrowser QA Carbon\nM2007\n\tkg\t$3.75\t0 kg\t1.5 kg\tInactive\t\nView\nBrowser QA Carbon\nEdit\nBrowser QA Carbon\nRemove\nBrowser QA Carbon\n\nDemo edits last for this browser tab. Reset sample data"
+    },
+    {
+      "name": "Material positive stock prevents deletion",
+      "passed": true,
+      "evidence": "Positive stock blocker"
+    },
+    {
+      "name": "Login session status persists",
+      "passed": true,
+      "evidence": "Signed in as Alex Morgan (Employee) for this demo tab. Continue · Sign out"
+    },
+    {
+      "name": "Sign out restores login",
+      "passed": true,
+      "evidence": "Sign-in form restored"
+    },
+    {
+      "name": "Admin role redirect",
+      "passed": true,
+      "evidence": "Admin reached material management"
+    },
+    {
+      "name": "Admin role session displayed",
+      "passed": true,
+      "evidence": "Admin session"
+    },
+    {
+      "name": "Customer role redirect",
+      "passed": true,
+      "evidence": "Customer reached public catalog"
+    },
+    {
+      "name": "Future purchase date rejected",
+      "passed": true,
+      "evidence": "Future purchase date validation"
+    },
+    {
+      "name": "Zero material boundary without fabricated history",
+      "passed": true,
+      "evidence": "Raw materials / Material details\nMaterial added to this tab’s sample data.\nM2008 / MATERIAL DETAILS\nQA Zero Material\n\n$0.00 per L   Active Low stock\n\nEdit or adjust stock\nQA Zero Material\nLow stock. 0 L on hand is at or below the reorder level of 0 L. Consider reordering before production is delayed.\nMaterial information\nMaterial ID\nM2008\nStatus\nActive\nUnit of measure\nL\nUnit cost · internal\n$0.00\nReorder level\n0 L\nMost recent purchase\nNone recorded\nDescription\n—\nQUANTITY ON HAND\n0 L\n\nStock value: $0.00\n\nStock changes only through a recorded adjustment with a reason and an employee.\n\nUsed in products\n\nNot linked to any product.\n\nStock change history\nStock adjustments for QA Zero Material, newest first\nDATE\tREASON\tCHANGE\tRECORDED BY\nNo stock changes recorded yet.\nRemove or retire\n\nThis fictional record has zero stock, no product links, and no stock history. Removing it affects only this tab’s sample data.\n\nDelete material\nBack to raw materials"
+    },
+    {
+      "name": "Unused unit change allowed",
+      "passed": true,
+      "evidence": "Unused zero material changed L to kg"
+    },
+    {
+      "name": "New unused material can be deleted",
+      "passed": true,
+      "evidence": "Zero-history material removed"
+    },
+    {
+      "name": "products view unknown ID",
+      "passed": true,
+      "evidence": "Product not found. It may have been removed or reset. Return to Products and choose an existing record."
+    },
+    {
+      "name": "products edit unknown ID",
+      "passed": true,
+      "evidence": "Product not found. It may have been removed or reset. Return to Products and choose an existing record."
+    },
+    {
+      "name": "products delete unknown ID",
+      "passed": true,
+      "evidence": "Product not found. It may have been removed or reset. Return to Products and choose an existing record."
+    },
+    {
+      "name": "materials view unknown ID",
+      "passed": true,
+      "evidence": "Material not found. It may have been removed or reset. Return to Raw materials and choose an existing record."
+    },
+    {
+      "name": "materials edit unknown ID",
+      "passed": true,
+      "evidence": "Material not found. It may have been removed or reset. Return to Raw materials and choose an existing record."
+    },
+    {
+      "name": "materials delete unknown ID",
+      "passed": true,
+      "evidence": "Material not found. It may have been removed or reset. Return to Raw materials and choose an existing record."
+    },
+    {
+      "name": "Reset cancellation keeps changes",
+      "passed": true,
+      "evidence": "Temporary material still present"
+    },
+    {
+      "name": "Material reset restores fixtures",
+      "passed": true,
+      "evidence": "WORKSHOP / EMPLOYEE DEMONSTRATION\nRaw material management\n\nProduction inputs, costs, and stock levels. Low-stock items need reordering.\n\n+ Add material\nSample data reset. Temporary changes have been removed.\n6\nTotal material records\n3\nActive materials at or below reorder level\n$3,124.00\nStock value · active materials\nSearch by name or ID\nStock level\nAll stock levels\nLow stock only\nAbove reorder level\nStatus\nAll statuses\nActive\nInactive\nClear filters\n\n6 of 6 material records\n\nRaw material records · internal employee view\nMATERIAL\tUNIT\tUNIT COST\tON HAND\tREORDER LEVEL\tSTATUS\tACTIONS\n\nCarbon fiber fabric\nM2001\n\tsq m\t$28.50\t74 sq m\t20 sq m\tActive\t\nView\nCarbon fiber fabric\nEdit\nCarbon fiber fabric\nRemove\nCarbon fiber fabric\n\n\nPaulownia wood core\nM2002\n\teach\t$42.00\t18 each Low stock\t20 each\tActive\t\nView\nPaulownia wood core\nEdit\nPaulownia wood core\nRemove\nPaulownia wood core\n\n\nEpoxy resin\nM2003\n\tL\t$19.75\t4 L Low stock\t8 L\tActive\t\nView\nEpoxy resin\nEdit\nEpoxy resin\nRemove\nEpoxy resin\n\n\nP-Tex base material\nM2004\n\tsq m\t$15.00\t12 sq m\t5 sq m\tActive\t\nView\nP-Tex base material\nEdit\nP-Tex base material\nRemove\nP-Tex base material\n\n\nABS sidewall strip\nM2005\n\tm\t$3.10\t0 m\t0 m\tInactive\t\nView\nABS sidewall strip\nEdit\nABS sidewall strip\nRemove\nABS sidewall strip\n\n\nCarbon fabric - old entry\nM2006\n\tsq m\t$28.50\t0 sq m Low stock\t0 sq m\tActive\t\nView\nCarbon fabric - old entry\nEdit\nCarbon fabric - old entry\nRemove\nCarbon fabric - old entry\n\nDemo edits last for this browser tab. Reset sample data"
+    },
+    {
+      "name": "Product reset restores fixtures",
+      "passed": true,
+      "evidence": "WORKSHOP / EMPLOYEE DEMONSTRATION\nProduct management\n\nSpecifications, pricing, and finished stock. Quantities are measured in pairs.\n\n+ Add product\nSample data reset. Temporary changes have been removed.\n4\nTotal product records\n3\nActive products\n15\nFinished pairs · all records\nSearch by name or ID\nSki type\nAll types\nPark\nPowder\nTouring\nStatus\nAll statuses\nActive\nInactive\nClear filters\n\n4 of 4 product records\n\nProduct records · internal employee view\nPRODUCT\tSPECIFICATIONS\tSELLING PRICE\tMFG. COST\tSTOCK\tSTATUS\tACTIONS\n\nAlpine Powder 180\nP1001\n\tPowder · 180 cm\nHybrid\n\t$849.00\t$410.00\t5 pairs\tActive\t\nView\nAlpine Powder 180\nEdit\nAlpine Powder 180\nRemove\nAlpine Powder 180\n\n\nWorkshop Park 172\nP1002\n\tPark · 172 cm\nHybrid\n\t$629.00\t$295.00\t8 pairs\tActive\t\nView\nWorkshop Park 172\nEdit\nWorkshop Park 172\nRemove\nWorkshop Park 172\n\n\nRidgeline Touring 178\nP1003\n\tTouring · 178 cm\nFull carbon\n\t$1,099.00\t$530.00\t0 pairs\nOut of stock\n\tActive\t\nView\nRidgeline Touring 178\nEdit\nRidgeline Touring 178\nRemove\nRidgeline Touring 178\n\n\nArchive Powder 184\nP1004\n\tPowder · 184 cm\nFull carbon\n\t$899.00\t$450.00\t2 pairs\tInactive\t\nView\nArchive Powder 184\nEdit\nArchive Powder 184\nRemove\nArchive Powder 184\n\nDemo edits last for this browser tab. Reset sample data"
+    },
+    {
+      "name": "Responsive layouts at 39 page-width combinations",
+      "passed": true,
+      "evidence": "13 pages at 390/768/1280 px; no non-table main-content elements exceed viewport; wide tables scroll"
+    },
+    {
+      "name": "Clean direct-page load sweep",
+      "passed": true,
+      "evidence": "All 13 pages loaded with no errors in a clean direct-page sweep"
+    },
+    {
+      "name": "Keyboard skip-to-content focuses main",
+      "passed": true,
+      "evidence": "Accessibility tree confirms main receives focus after Enter on skip link"
+    },
+    {
+      "name": "Escape dismisses reset confirmation",
+      "passed": true,
+      "evidence": "Dialog dismissed without resetting"
+    }
+  ],
+  "layout": [
+    {
+      "screen": "Home",
+      "path": "/index.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Good skis start with good records.",
+      "overflow": []
+    },
+    {
+      "screen": "Login",
+      "path": "/security/login.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Sign in to the workshop",
+      "overflow": []
+    },
+    {
+      "screen": "Product list",
+      "path": "/products/index.php",
+      "width": 390,
+      "scroll": 704,
+      "heading": "Product management",
+      "overflow": []
+    },
+    {
+      "screen": "Add product",
+      "path": "/products/create.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Add product",
+      "overflow": []
+    },
+    {
+      "screen": "Product details",
+      "path": "/products/view.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Alpine Powder 180",
+      "overflow": []
+    },
+    {
+      "screen": "Edit product",
+      "path": "/products/edit.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Edit product",
+      "overflow": []
+    },
+    {
+      "screen": "Delete product",
+      "path": "/products/delete.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Remove product",
+      "overflow": []
+    },
+    {
+      "screen": "Customer catalog",
+      "path": "/products/catalog.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Find your next pair.",
+      "overflow": []
+    },
+    {
+      "screen": "Material list",
+      "path": "/materials/index.php",
+      "width": 390,
+      "scroll": 649,
+      "heading": "Raw material management",
+      "overflow": []
+    },
+    {
+      "screen": "Add material",
+      "path": "/materials/create.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Add raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Material details",
+      "path": "/materials/view.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Carbon fiber fabric",
+      "overflow": []
+    },
+    {
+      "screen": "Edit material",
+      "path": "/materials/edit.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Edit raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Delete material",
+      "path": "/materials/delete.php",
+      "width": 390,
+      "scroll": 390,
+      "heading": "Remove raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Home",
+      "path": "/index.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Good skis start with good records.",
+      "overflow": []
+    },
+    {
+      "screen": "Login",
+      "path": "/security/login.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Sign in to the workshop",
+      "overflow": []
+    },
+    {
+      "screen": "Product list",
+      "path": "/products/index.php",
+      "width": 768,
+      "scroll": 801,
+      "heading": "Product management",
+      "overflow": []
+    },
+    {
+      "screen": "Add product",
+      "path": "/products/create.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Add product",
+      "overflow": []
+    },
+    {
+      "screen": "Product details",
+      "path": "/products/view.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Alpine Powder 180",
+      "overflow": []
+    },
+    {
+      "screen": "Edit product",
+      "path": "/products/edit.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Edit product",
+      "overflow": []
+    },
+    {
+      "screen": "Delete product",
+      "path": "/products/delete.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Remove product",
+      "overflow": []
+    },
+    {
+      "screen": "Customer catalog",
+      "path": "/products/catalog.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Find your next pair.",
+      "overflow": []
+    },
+    {
+      "screen": "Material list",
+      "path": "/materials/index.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Raw material management",
+      "overflow": []
+    },
+    {
+      "screen": "Add material",
+      "path": "/materials/create.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Add raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Material details",
+      "path": "/materials/view.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Carbon fiber fabric",
+      "overflow": []
+    },
+    {
+      "screen": "Edit material",
+      "path": "/materials/edit.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Edit raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Delete material",
+      "path": "/materials/delete.php",
+      "width": 768,
+      "scroll": 768,
+      "heading": "Remove raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Home",
+      "path": "/index.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Good skis start with good records.",
+      "overflow": []
+    },
+    {
+      "screen": "Login",
+      "path": "/security/login.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Sign in to the workshop",
+      "overflow": []
+    },
+    {
+      "screen": "Product list",
+      "path": "/products/index.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Product management",
+      "overflow": []
+    },
+    {
+      "screen": "Add product",
+      "path": "/products/create.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Add product",
+      "overflow": []
+    },
+    {
+      "screen": "Product details",
+      "path": "/products/view.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Alpine Powder 180",
+      "overflow": []
+    },
+    {
+      "screen": "Edit product",
+      "path": "/products/edit.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Edit product",
+      "overflow": []
+    },
+    {
+      "screen": "Delete product",
+      "path": "/products/delete.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Remove product",
+      "overflow": []
+    },
+    {
+      "screen": "Customer catalog",
+      "path": "/products/catalog.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Find your next pair.",
+      "overflow": []
+    },
+    {
+      "screen": "Material list",
+      "path": "/materials/index.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Raw material management",
+      "overflow": []
+    },
+    {
+      "screen": "Add material",
+      "path": "/materials/create.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Add raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Material details",
+      "path": "/materials/view.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Carbon fiber fabric",
+      "overflow": []
+    },
+    {
+      "screen": "Edit material",
+      "path": "/materials/edit.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Edit raw material",
+      "overflow": []
+    },
+    {
+      "screen": "Delete material",
+      "path": "/materials/delete.php",
+      "width": 1280,
+      "scroll": 1280,
+      "heading": "Remove raw material",
+      "overflow": []
+    }
+  ],
+  "cleanPages": [
+    {
+      "path": "index.php",
+      "heading": "Good skis start with good records."
+    },
+    {
+      "path": "security/login.php",
+      "heading": "Sign in to the workshop"
+    },
+    {
+      "path": "products/index.php",
+      "heading": "Product management"
+    },
+    {
+      "path": "products/create.php",
+      "heading": "Add product"
+    },
+    {
+      "path": "products/view.php?id=P1001",
+      "heading": "Alpine Powder 180"
+    },
+    {
+      "path": "products/edit.php?id=P1001",
+      "heading": "Edit product"
+    },
+    {
+      "path": "products/delete.php?id=P1002",
+      "heading": "Remove product"
+    },
+    {
+      "path": "products/catalog.php",
+      "heading": "Find your next pair."
+    },
+    {
+      "path": "materials/index.php",
+      "heading": "Raw material management"
+    },
+    {
+      "path": "materials/create.php",
+      "heading": "Add raw material"
+    },
+    {
+      "path": "materials/view.php?id=M2001",
+      "heading": "Carbon fiber fabric"
+    },
+    {
+      "path": "materials/edit.php?id=M2003",
+      "heading": "Edit raw material"
+    },
+    {
+      "path": "materials/delete.php?id=M2006",
+      "heading": "Remove raw material"
+    }
+  ],
+  "cleanErrors": [],
+  "diagnosticNote": "Four unsourced MutationObserver errors occurred during iframe tooling diagnostics in the main test tab. A fresh direct-page sweep of all 13 application pages recorded no errors."
+}

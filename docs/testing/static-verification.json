@@ -1,12 +1,18 @@
 {
+  "review_date": "2026-11-08",
   "passed": true,
   "checks": [
-    "All local page links, assets, label targets, and HTML IDs checked.",
-    "17 SVG assets parse as XML.",
-    "All four browser JavaScript files pass syntax checks.",
-    "All five DOCX files have no tutoring examples or unfilled template prompts; PAGE fields are preserved.",
-    "Source template styles, theme, numbering, and settings remain unchanged in all five DOCX files.",
-    "Inventory: eight PHP pages, four use case documents, four activity diagrams, nine wireframes, two model diagrams, one product requirements document."
+    "All HTML/PHP page links, assets, labels, and IDs checked.",
+    "All 32 SVGs parse as XML.",
+    "All seven JavaScript files pass syntax checks.",
+    "All 13 PHP pages and seven JavaScript files are byte-identical to the latest teammate package.",
+    "Eight use case DOCX files, eight activities, 19 wireframes, login model, overall model, ERD, and team reflection are indexed.",
+    "Design atlas includes every activity, wireframe, and the ERD.",
+    "Raw material DOCX text checked for superseded inventory-history exclusions.",
+    "Requirements DOCX changes are confined to body text; styles and page fields are preserved."
   ],
-  "errors": []
+  "errors": [],
+  "runtime_limit": "Front-end browser verification passed: 65 assertions and 39 responsive checks. PHP engine unavailable; used HTML-only local preview.",
+  "browser_checks_passed": 65,
+  "responsive_combinations_passed": 39
 }
