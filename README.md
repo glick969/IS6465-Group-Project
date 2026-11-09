@@ -22,13 +22,14 @@ Open http://localhost:8000/index.php. Pages contain HTML/CSS and browser JavaScr
 6. Review P1001 for historical-transaction inactivation and P1003 for material-link blocking.
 7. Reset sample data from the Products page when needed.
 
-Raw materials (Member B):
+Raw materials  Tyler):
 
 8. Open Raw materials. Three active materials are flagged low stock; filter by Low stock only.
 9. Add a material. Try a duplicate name or a negative cost to see validation, then save with a starting quantity; the view page shows an Initial count entry.
 10. Edit Epoxy resin (M2003). Try using 10 L in production to see the below-zero rule, then record a 12 L delivery; the low-stock flag clears and the purchase date updates.
-11. Removal rules: M2001 has product links and history (inactivate only), M2004 still has stock (delete blocked), M2006 is unused with zero stock (delete after confirmation).
-12. Sign in at Login with a fictional account listed on the page. Employees and admins go to Raw materials; customers go to the catalog. Five wrong passwords pause the form for 30 seconds.
+11. Removal rules: M2001 has product links and history (inactivate only), M2004 still has stock (inactivate only), M2006 has zero stock, no links, and no history (delete after confirmation). Any stock adjustment, including an initial count or correction, counts as history.
+12. Unit lock: on Edit, the unit is locked for materials with stock, history, or product links (try M2003); it stays editable for M2006.
+13. Sign in at Login with a fictional account listed on the page. Employees and admins go to Raw materials; customers go to the catalog. Five wrong passwords pause the form for 30 seconds.
 
 Temporary records use sessionStorage in the current tab. They do not persist as real inventory. Reset replaces sample records and discards temporary edits; a separate ID counter intentionally continues to avoid ID reuse. Public and staff views are demonstrations, not access controls. Anyone able to access this prototype can open staff URLs. Never use real sensitive data.
 
@@ -42,7 +43,7 @@ Temporary records use sessionStorage in the current tab. They do not persist as 
 - `docs/testing/verification.md`: checks actually performed and outstanding human review.
 - `docs/HANDOFF.md`: module ownership, merge instructions, fields, and ERD contract.
 
-## Member B contribution
+## Tyler's contribution
 
 - `security/login.php` and `assets/js/login.js`: login page (UC-A01). Demo accounts only; passwords compared as SHA-256 hashes in the browser to illustrate never storing plain text. This is not real authentication.
 - `materials/index.php`, `create.php`, `view.php`, `edit.php`, `delete.php` with `assets/js/materials.js` and `assets/js/material-fixtures.js`: Raw Material Management CRUD (UC-M01 to UC-M04), including stock adjustments with a reason and employee, low-stock indicators, and delete-or-inactivate rules.
@@ -50,11 +51,10 @@ Temporary records use sessionStorage in the current tab. They do not persist as 
 - `docs/use-cases/UC-M01` to `UC-M04` DOCX files and `material-use-cases.md`: raw material use case documents built on the same course template as the product use cases.
 - `docs/activity-diagrams/AD-M01` to `AD-M04` (DOT source, SVG, PNG): raw material activity diagrams.
 - `docs/wireframes/WF-M01` to `WF-M04S` and `WF-A01` (SVG, PNG): raw material and login wireframes.
-- Shared navigation and the home page card now link to the real login and raw material pages; the temporary integration page was removed. Member B styles were appended to the end of `assets/css/styles.css` without changing existing rules.
+- Shared navigation and the home page card now link to the real login and raw material pages; the temporary integration page was removed. Tyler styles were appended to the end of `assets/css/styles.css` without changing existing rules.
 
 ## Scope remaining for the group
-
-Member B still needs a reflection contribution, and both members must add the material use cases (UC-M01 to UC-M04) to the overall use case model. Both members must review shared artifacts, complete the combined reflection, record actual contributions, and prepare the final group ZIP and repository link.
+ Tyler's reflection contribution is in `docs/reflection/Member_B_Reflection.md`. Both members must add the material use cases (UC-M01 to UC-M04) to the overall use case model. Both members must review shared artifacts, complete the combined reflection, record actual contributions, and prepare the final group ZIP and repository link.
 
 ## Sources and AI assistance
 

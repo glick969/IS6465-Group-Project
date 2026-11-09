@@ -3,14 +3,15 @@ digraph G { graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.3", rankse
 open [label="Employee: select Edit",fillcolor="#fff5e7"];
 exists [shape=diamond,label="Material exists?",fillcolor="#ffffff"];
 missing [label="Prototype: show not-found; no editable form"];
-form [label="Prototype: prefill details; show quantity on hand read only"];
+form [label="Prototype: prefill details; show quantity read only;
+lock unit if stock, history, or product links"];
 mergeEdit [shape=diamond,label="",width=.18,height=.18,fixedsize=true,fillcolor="white"];
 edit [label="Employee: revise details or enter
 stock-change reason, amount, and employee",fillcolor="#fff5e7"];
 action [shape=diamond,label="Employee action?",fillcolor="#ffffff"];
 cancel [label="Prototype: return to details; keep stored values"];
-validD [shape=diamond,label="Details valid and
-name unique?",fillcolor="#ffffff"];
+validD [shape=diamond,label="Details valid, name unique,
+locked unit unchanged?",fillcolor="#ffffff"];
 validA [shape=diamond,label="Reason, amount > 0,
 and employee given?",fillcolor="#ffffff"];
 errors [label="Prototype: specific errors; preserve entries"];

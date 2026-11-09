@@ -31,7 +31,7 @@ Member B draft for joint review. Diagram: `DB/ERD.png` (editable source `DB/ERD.
 | material_id | INT, PK, auto-increment | Not editable; shown as M2001, M2002... in the prototype |
 | material_name | VARCHAR(80) | Required |
 | description | VARCHAR(255) | Optional |
-| unit_of_measure | VARCHAR(20) | Required (for example sq m, kg, L, each) |
+| unit_of_measure | VARCHAR(20) | Required (for example sq m, kg, L, each). Locked once the material has stock, any INVENTORY_ADJUSTMENT history, or PRODUCT_MATERIAL links, because changing it would relabel earlier records without converting them |
 | unit_cost | DECIMAL(10,2) | Required, >= 0, USD |
 | quantity_on_hand | DECIMAL(10,2) | Required, >= 0; changed only through an INVENTORY_ADJUSTMENT after creation |
 | reorder_level | DECIMAL(10,2) | Required, >= 0; low-stock indicator when quantity_on_hand <= reorder_level |
@@ -57,7 +57,7 @@ Member B draft for joint review. Diagram: `DB/ERD.png` (editable source `DB/ERD.
 | reason | ENUM('Initial count','Delivery','Production use','Correction') | Required. Initial count is logged when a material is created with stock |
 | adjusted_at | DATETIME | Set by the system |
 
-**Delete rule:** a material can be permanently deleted only when quantity_on_hand is zero, it has no PRODUCT_MATERIAL links, and it has no Delivery or Production use adjustments. Materials with links or that history are marked Inactive instead. Initial counts and corrections do not block deletion, so a record created by mistake can be corrected to zero and removed.
+**Delete rule:** a material can be permanently deleted only when quantity_on_hand is zero, it has no PRODUCT_MATERIAL links, and it has no INVENTORY_ADJUSTMENT history of any kind (initial counts and corrections included). Any other material is marked Inactive instead, so its history is preserved.
 
 ## Product module table (Member A contract)
 

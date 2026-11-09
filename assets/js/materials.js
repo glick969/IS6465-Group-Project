@@ -14,8 +14,6 @@
     'correction-add': {reason: 'Correction', sign: 1, label: 'Count correction (add)'},
     'correction-subtract': {reason: 'Correction', sign: -1, label: 'Count correction (subtract)'}
   };
-  // Deliveries and production use are inventory history; corrections and initial counts are not.
-  const HISTORY_REASONS = ['Delivery', 'Production use'];
   const detailFields = ['name', 'description', 'unit', 'unitCost', 'reorderLevel', 'status'];
   const createFields = ['name', 'description', 'unit', 'unitCost', 'quantity', 'reorderLevel', 'lastPurchase', 'employee', 'status'];
 
@@ -77,7 +75,10 @@
     return p ? p.name : 'Product no longer in sample data';
   }
   const isLow = m => m.status === 'Active' && m.quantity <= m.reorderLevel;
-  const historyFor = m => adjustments.filter(a => a.material === m.id && HISTORY_REASONS.includes(a.reason));
+  // Any logged stock change (initial count, delivery, production use, or correction) is inventory history.
+  const historyFor = m => adjustments.filter(a => a.material === m.id);
+  // The unit is locked once earlier records depend on it, because changing it would relabel them without converting.
+  const unitLocked = m => m.quantity > 0 || historyFor(m).length > 0 || m.products.length > 0;
   const rowLink = (m, page, label) => `<a href="${page}.php?id=${encodeURIComponent(m.id)}">${label}<span class="visually-hidden"> ${esc(m.name)}</span></a>`;
   const statusBadge = m => `<span class="badge ${m.status === 'Inactive' ? 'inactive' : ''}">${esc(m.status)}</span>`;
   const lowBadge = m => isLow(m) ? ' <span class="badge warn">Low stock</span>' : '';
@@ -133,10 +134,10 @@
   function removal(m) {
     const reasons = [];
     if (m.products.length) reasons.push(`it is used in ${m.products.length} product${m.products.length > 1 ? 's' : ''}`);
-    if (historyFor(m).length) reasons.push('it has delivery or production history');
+    if (historyFor(m).length) reasons.push('it has stock history');
     if (reasons.length) return {kind: 'inactive', title: 'Preserve this material’s history', text: `Permanent deletion is unavailable because ${reasons.join(' and ')}. Mark it inactive to retire it while keeping usage and cost history for reporting.`};
-    if (m.quantity > 0) return {kind: 'stock', title: 'Stock must be zero before deletion', text: `This material still has ${qty(m.quantity)} ${m.unit} on hand. Record a count correction to bring stock to zero if the record is a mistake, or mark it inactive.`};
-    return {kind: 'delete', title: 'Confirm permanent removal', text: 'This fictional record has zero stock, no product links, and no delivery or production history. Removing it affects only this tab’s sample data.'};
+    if (m.quantity > 0) return {kind: 'stock', title: 'Stock on hand blocks deletion', text: `This material still has ${qty(m.quantity)} ${m.unit} on hand. Only materials with zero stock and no history can be deleted. Mark it inactive to retire it.`};
+    return {kind: 'delete', title: 'Confirm permanent removal', text: 'This fictional record has zero stock, no product links, and no stock history. Removing it affects only this tab’s sample data.'};
   }
 
   /* ---------- UC-M02 Read: details page ---------- */
@@ -164,7 +165,7 @@
   if ($('remove-content') && current) {
     const m = current, policy = removal(m), inactive = m.status === 'Inactive';
     $('remove-content').hidden = false;
-    $('remove-content').innerHTML = `<h2>${esc(m.name)} <span class="muted">/ ${esc(m.id)}</span></h2><p>${qty(m.quantity)} ${esc(m.unit)} on hand · ${esc(m.status)}</p><div class="notice ${policy.kind === 'delete' ? 'error' : ''}"><strong>${esc(policy.title)}</strong><p>${esc(policy.text)}</p></div><p>Product links: ${m.products.length}. Delivery or production records: ${historyFor(m).length}.</p>${policy.kind !== 'delete' && inactive ? '<p>This material is already inactive. No change is needed.</p>' : ''}<div class="actions">${policy.kind === 'delete' ? '<button id="confirm-remove" class="danger">Confirm delete</button>' : '<button disabled>Delete unavailable</button>' + (!inactive ? '<button id="confirm-inactive" class="primary">Confirm mark inactive</button>' : '')}${policy.kind === 'stock' ? `<a class="btn" href="edit.php?id=${encodeURIComponent(m.id)}#adjust-title">Record a correction</a>` : ''}<a class="btn" href="view.php?id=${encodeURIComponent(m.id)}">Cancel and keep material</a></div><p><small>No change happens until you confirm. All changes are temporary demo changes.</small></p>`;
+    $('remove-content').innerHTML = `<h2>${esc(m.name)} <span class="muted">/ ${esc(m.id)}</span></h2><p>${qty(m.quantity)} ${esc(m.unit)} on hand · ${esc(m.status)}</p><div class="notice ${policy.kind === 'delete' ? 'error' : ''}"><strong>${esc(policy.title)}</strong><p>${esc(policy.text)}</p></div><p>Product links: ${m.products.length}. Stock history records: ${historyFor(m).length}.</p>${policy.kind !== 'delete' && inactive ? '<p>This material is already inactive. No change is needed.</p>' : ''}<div class="actions">${policy.kind === 'delete' ? '<button id="confirm-remove" class="danger">Confirm delete</button>' : '<button disabled>Delete unavailable</button>' + (!inactive ? '<button id="confirm-inactive" class="primary">Confirm mark inactive</button>' : '')}<a class="btn" href="view.php?id=${encodeURIComponent(m.id)}">Cancel and keep material</a></div><p><small>No change happens until you confirm. All changes are temporary demo changes.</small></p>`;
     if ($('confirm-remove')) $('confirm-remove').addEventListener('click', () => {
       // Recheck the rules immediately before changing the temporary records.
       if (removal(m).kind !== 'delete') return;
@@ -219,13 +220,18 @@
       detailFields.forEach(key => input(key).value = current[key]);
       $('cancel-form').href = `view.php?id=${encodeURIComponent(current.id)}`;
       $('current-stock').textContent = `${qty(current.quantity)} ${current.unit}`;
-      if (current.products.length) $('unit-help').textContent = `Used in ${current.products.length} product requirement(s). Changing the unit changes how those quantities are read; review them together.`;
+      if (unitLocked(current)) {
+        input('unit').disabled = true;
+        $('unit-help').textContent = 'Locked because this material has stock, stock history, or product links. Changing it would relabel earlier records without converting them.';
+      }
     } else if (input('lastPurchase')) {
       input('lastPurchase').max = today();
     }
     form.addEventListener('submit', e => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form));
+      // A disabled field is not submitted, so a locked unit keeps the stored value.
+      if (editing && unitLocked(current)) data.unit = current.unit;
       const errors = detailErrors(data, editing ? current.id : null);
       if (!editing) {
         if (!amountPattern.test(data.quantity)) errors.quantity = 'Enter a starting quantity of zero or more, up to two decimal places.';

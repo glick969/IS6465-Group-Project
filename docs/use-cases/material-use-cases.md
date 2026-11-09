@@ -86,7 +86,7 @@ Related: AD-M02. WF-M02 and WF-M02D. Rules: proposal Raw Material Management; DB
 
 - **A1 Invalid values** At step 3, keep entries and show field errors (duplicate name, negative cost or reorder level, missing reason or employee, zero amount); repeat step 3.
 - **A2 Stock below zero** Reject production use or a subtracting correction larger than the quantity on hand; state the quantity on hand and keep the entries.
-- **A3 Unit change** If used in products, warn that requirement quantities will be read in the new unit.
+- **A3 Unit locked** If the material has stock, stock history, or product links, the unit cannot be changed.
 - **A4 Cancel** Return to details with stored values unchanged.
 - **A5 Missing record or storage failure** Show Material not found with no editable form, or keep entries and report the failed save.
 
@@ -104,19 +104,19 @@ Related: AD-M03. WF-M03 and WF-M03A; validation follows WF-M01E. Rules: proposal
 
 **post** Success: an eligible record is removed, or the material remains with Inactive status. Cancellation or a blocked operation leaves data unchanged.
 
-**failure** Missing records show an error. Materials with links, delivery or production history, or stock on hand cannot be permanently deleted.
+**failure** Missing records show an error. Materials with product links, any stock history, or stock on hand cannot be permanently deleted.
 
 ### Main flow
 
 1. Actor: Select Delete material or Review removal options from a material record. System: Display the material identity, stock on hand, product links, and history summary.
-2. Actor: Review whether removal is eligible. System: For a record with zero stock, no product links, and no delivery or production history, show Confirm delete and Cancel.
+2. Actor: Review whether removal is eligible. System: For a record with zero stock, no product links, and no stock history, show Confirm delete and Cancel.
 3. Actor: Select Confirm delete. System: Recheck the rules and remove only the eligible temporary record.
 4. Actor: Review the result. System: Return to Raw materials with a removal confirmation.
 
 ### Alternatives
 
-- **A1 Product links or history** At step 2, disable permanent deletion and offer Confirm mark inactive; an already inactive record needs no change. Initial counts and corrections alone are not history.
-- **A2 Stock on hand** With no links or history but stock above zero, disable deletion. Offer inactivation, or Record a correction to bring stock to zero (UC-M03).
+- **A1 Product links or history** At step 2, disable permanent deletion and offer Confirm mark inactive; an already inactive record needs no change. Any logged stock change counts as history.
+- **A2 Stock on hand** With no links or history but stock above zero, disable deletion and offer Confirm mark inactive.
 - **A3 Cancel** Before confirmation, return to details and preserve the material.
 - **A4 Missing record or storage failure** Show an explanatory error and do not report success.
 - **A5 Final integrity** The final database must repeat these checks in a protected operation using the Product_Material and Inventory_Adjustment foreign keys.
